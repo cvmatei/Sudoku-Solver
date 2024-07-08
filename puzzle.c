@@ -1,5 +1,66 @@
 #include "sudoku.h"
 
+Square *** setUpPuzzle(int ** puzzle)
+{
+    Square *** sudoku;
+    int i, j, x;
+
+    sudoku = (Square***)malloc(sizeof(Square**)*9);
+
+    /* loop through rows */
+    for (i = 0; i < 9; i++)
+    {
+        /* malloc space for each row */
+        sudoku[i] = (Square**)malloc(sizeof(Square*)*9);
+
+        /* loop through columns */
+        for (j = 0; j < 9; j++)
+        {
+            /* malloc space for each square */
+            sudoku[i][j] = (Square*)malloc(sizeof(Square)*9);
+
+            sudoku[i][j] ->number = puzzle[i][j];
+
+            sudoku[i][j] ->row = i;
+            sudoku[i][j] ->col = j;
+
+            for (x = 0; x < 9; x++)
+            {
+                sudoku[i][j] ->possible[x] = 0;
+            }
+        }
+    }
+
+    /* loop through rows */
+    for (i = 0; i < 9; i++)
+    {
+        /* loop through columns */
+        for (j = 0; j < 9; j++)
+        {
+            if (sudoku[i][j] ->number != 0)
+            {
+                sudoku[i][j] ->solvable = 0;
+                updateSudoku(sudoku, i, j);
+            }
+        }
+    }
+}
+
+int updateSudoku(Square *** sudoku, int row, int col)
+{
+    int x;
+    int number = sudoku[row][col] ->number;
+
+    for (x = 0; x < 9; x++)
+    {
+        if (sudoku[x][col] ->possible[number - 1] == 0)
+        {
+            sudoku[x][col] ->solvable--;
+        }
+        sudoku[x][col] ->possible[number - 1] = 1;
+    }
+}
+
 int ** createPuzzle()
 {
     int ** puzzle;
