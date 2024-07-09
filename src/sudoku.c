@@ -9,11 +9,15 @@ int main()
 
     puzzle = createPuzzle();
 
-    printPuzzle(puzzle);
-
     sudoku = setUpPuzzle(puzzle);
 
+    printPuzzle(sudoku);
+
     checkPuzzle(sudoku);
+
+    printf("\n\n\n");
+
+    printPuzzle(sudoku);
     
     return 0;
 }

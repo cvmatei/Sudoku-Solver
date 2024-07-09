@@ -135,7 +135,7 @@ void printPuzzle(Square *** puzzle)
         printf("|");
         for (j = 0; j < 9; j++)
         {
-            printf(" %d ", puzzle[i][j]);
+            printf(" %d ", puzzle[i][j]->number);
 
             if (((j + 1) % 3) == 0)
             {
