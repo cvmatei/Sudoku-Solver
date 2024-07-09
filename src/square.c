@@ -1,5 +1,12 @@
 #include "sudoku.h"
 
+/* int solveSquare(Square * square)
+* 
+* Once a square has been determined to have only 
+* one possibility then the number is entered and 
+* the global variable UNSOLVED is decremented 
+*
+*/
 int solveSquare(Square * square)
 {
     int x;

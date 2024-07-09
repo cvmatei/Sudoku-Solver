@@ -1,13 +1,18 @@
 #include "sudoku.h"
 
-int checkRows(Square *** sudoku, Box ** boxes)
+/* int checkRows(Square *** sudoku)
+ *
+ * checkRows function checks all rows to see if there is 
+ * only one possibility in that row for a number to exist
+ */
+int checkRows(Square *** sudoku)
 {
     int i, j, k;
     int sum[9];
     int place[9];
 
     /* Loop through all rows */
-    for (i = 0; i < 9; i++)
+    for (i = 0; i < SIZE_ROWS; i++)
     {
         /* Initialize sum and place to 0 */
         for (j = 0; j < 9; j++)
@@ -18,7 +23,7 @@ int checkRows(Square *** sudoku, Box ** boxes)
          
 
         /* Loop though each square in the row */
-        for (j = 0; j < 9; j++)
+        for (j = 0; j < SIZE_COL; j++)
         {
             if (sudoku[i][j]->number != 0)
             {

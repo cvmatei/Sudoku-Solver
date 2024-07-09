@@ -5,6 +5,8 @@
 #include <stdlib.h>
 
 extern int UNSOLVED;
+extern int SIZE_ROWS;
+extern int SIZE_COL;
 
 typedef struct Sudoku
 {
@@ -50,6 +52,6 @@ int updateBoxes(Square *** sudoku, int row, int col);
 int boxSingles(Square *** sudoku, Box ** boxes);
 
 /* row functions */
-int checkRows(Square *** sudoku, Box ** boxes);
+int checkRows(Square *** sudoku);
 
 #endif

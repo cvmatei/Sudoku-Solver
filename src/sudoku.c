@@ -22,8 +22,6 @@ int main()
 
         if (progress == 0)
         {
-            printf("\nFailed to solve");
-            printf("%d", UNSOLVED);
             break;
         }
     }
