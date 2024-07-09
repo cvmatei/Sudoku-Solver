@@ -35,7 +35,7 @@ Sudoku * setUpPuzzle(int ** puzzle)
 
             sudoku[i][j] ->number = puzzle[i][j];
 
-            /* assign row ad column numbers to each square */
+            /* assign row and column numbers to each square */
             sudoku[i][j] ->row = i;
             sudoku[i][j] ->col = j;
             sudoku[i][j] ->solvable = 9;
@@ -84,7 +84,7 @@ Sudoku * setUpPuzzle(int ** puzzle)
 int updateSudoku(Square *** sudoku, int row, int col)
 {
     int x;
-    int number = sudoku[row][col] ->number;
+    int number = sudoku[row][col]->number;
 
     for (x = 0; x < 9; x++)
     {
@@ -122,13 +122,16 @@ int checkPuzzle(Square *** sudoku, Box ** boxes)
                 solveSquare(sudoku[i][j]);
                 updateSudoku(sudoku, i, j);
                 updateBoxes(sudoku, i, j);
+
+                return 1;
             }
         }
     }
 
-    boxSingles(sudoku, boxes);
+    if (boxSingles(sudoku, boxes))
+        return 1;
 
-    return 1;
+    return checkRows(sudoku, boxes);
 }
 
 int ** createPuzzle()

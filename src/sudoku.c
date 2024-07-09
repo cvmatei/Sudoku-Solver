@@ -1,10 +1,13 @@
 #include "sudoku.h"
 
 int UNSOLVED = 81;
+int SIZE_ROWS = 9;
+int SIZE_COL = 9;
 
 int main()
 {
     int ** puzzle;
+    int progress = 0;
     Sudoku * sudoku;
 
     puzzle = createPuzzle();
@@ -13,11 +16,19 @@ int main()
 
     printPuzzle(sudoku->squares);
 
-    checkPuzzle(sudoku->squares, sudoku->boxes);
+    while (UNSOLVED > 0)
+    {
+        progress = checkPuzzle(sudoku->squares, sudoku->boxes);
 
-    checkPuzzle(sudoku->squares, sudoku->boxes);
+        if (progress == 0)
+        {
+            printf("\nFailed to solve");
+            printf("%d", UNSOLVED);
+            break;
+        }
+    }
 
-    printf("\n\n\n");
+    printf("\n\n");
 
     printPuzzle(sudoku->squares);
     
