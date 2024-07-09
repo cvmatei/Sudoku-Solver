@@ -1,16 +1,19 @@
 #include "sudoku.h"
 
-char POSSIBLE = 0x1FF;
+int UNSOLVED = 81;
 
 int main()
 {
     int ** puzzle;
+    Square *** sudoku;
 
     puzzle = createPuzzle();
 
     printPuzzle(puzzle);
 
-    setUpPuzzle(puzzle);
+    sudoku = setUpPuzzle(puzzle);
+
+    checkPuzzle(sudoku);
     
     return 0;
 }

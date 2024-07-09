@@ -41,9 +41,12 @@ Square *** setUpPuzzle(int ** puzzle)
             {
                 sudoku[i][j] ->solvable = 0;
                 updateSudoku(sudoku, i, j);
+                UNSOLVED--;
             }
         }
     }
+
+    return sudoku;
 }
 
 int updateSudoku(Square *** sudoku, int row, int col)
@@ -59,6 +62,35 @@ int updateSudoku(Square *** sudoku, int row, int col)
         }
         sudoku[x][col] ->possible[number - 1] = 1;
     }
+
+    for (x = 0; x < 9; x++)
+    {
+        if (sudoku[row][x] ->possible[number - 1] == 0)
+        {
+            sudoku[row][x] ->solvable--;
+        }
+        sudoku[row][x] ->possible[number - 1] = 1;
+    }
+}
+
+int checkPuzzle(Square *** sudoku)
+{
+    int i, j, x;
+
+    /* loop through rows */
+    for (i = 0; i < 9; i++)
+    {
+        /* loop through columns */
+        for (j = 0; j < 9; j++)
+        {
+            if (sudoku[i][j] ->solvable == 1)
+            {
+                solveSquare(sudoku[i][j]);
+                updateSudoku(sudoku, i, j);
+            }
+        }
+    }
+    return 1;
 }
 
 int ** createPuzzle()
@@ -92,7 +124,7 @@ int ** createPuzzle()
     return puzzle;
 }
 
-void printPuzzle(int ** puzzle)
+void printPuzzle(Square *** puzzle)
 {
     int i, j;
 
