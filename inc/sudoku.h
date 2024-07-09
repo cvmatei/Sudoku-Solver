@@ -34,11 +34,11 @@ typedef struct Square
 
 int ** createPuzzle();
 Sudoku * setUpPuzzle(int ** puzzle);
-void printPuzzle(Square *** sudoku);
+void printPuzzle(Square *** squares);
 
 Sudoku * createSudoku(Square *** squares, Box ** boxes);
 
-int checkPuzzle(Square *** sudoku);
+int checkPuzzle(Square *** sudoku, Box ** boxes);
 int updateSudoku(Square *** sudoku, int row, int col);
 
 /* square functions */
@@ -47,5 +47,6 @@ int solveSquare(Square * square);
 /* box functions */
 Box ** createBoxes();
 int updateBoxes(Square *** sudoku, int row, int col);
+int boxSingles(Square *** sudoku, Box ** boxes);
 
 #endif

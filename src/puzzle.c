@@ -11,7 +11,7 @@ Sudoku * createSudoku(Square *** squares, Box ** boxes)
     return sudoku;
 }
 
-Square *** setUpPuzzle(int ** puzzle)
+Sudoku * setUpPuzzle(int ** puzzle)
 {
     Square *** sudoku;
     Box ** boxes;
@@ -40,7 +40,7 @@ Square *** setUpPuzzle(int ** puzzle)
             sudoku[i][j] ->col = j;
             sudoku[i][j] ->solvable = 9;
 
-            boxes[currentBox]->squares[boxes[currentBox]->numbers ] = sudoku[i][j];
+            boxes[currentBox]->squares[ boxes[currentBox]->numbers ] = sudoku[i][j];
             sudoku[i][j]->box = boxes[currentBox];
             boxes[currentBox]->numbers++;
 
@@ -78,7 +78,7 @@ Square *** setUpPuzzle(int ** puzzle)
         }
     }
 
-    return sudoku;
+    return createSudoku(sudoku, boxes);
 }
 
 int updateSudoku(Square *** sudoku, int row, int col)
@@ -103,9 +103,11 @@ int updateSudoku(Square *** sudoku, int row, int col)
         }
         sudoku[row][x] ->possible[number - 1] = 1;
     }
+
+    return 1;
 }
 
-int checkPuzzle(Square *** sudoku)
+int checkPuzzle(Square *** sudoku, Box ** boxes)
 {
     int i, j, x;
 
@@ -124,7 +126,7 @@ int checkPuzzle(Square *** sudoku)
         }
     }
 
-    boxSingles(sudoku);
+    boxSingles(sudoku, boxes);
 
     return 1;
 }
