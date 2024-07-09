@@ -1,11 +1,25 @@
 #include "sudoku.h"
 
+Sudoku * createSudoku(Square *** squares, Box ** boxes)
+{
+    Sudoku * sudoku;
+    sudoku = malloc(sizeof(Sudoku));
+
+    sudoku->squares = squares;
+    sudoku->boxes = boxes;
+
+    return sudoku;
+}
+
 Square *** setUpPuzzle(int ** puzzle)
 {
     Square *** sudoku;
+    Box ** boxes;
     int i, j, x;
+    int currentBox = 0;
 
     sudoku = (Square***)malloc(sizeof(Square**)*9);
+    boxes = createBoxes();
 
     /* loop through rows */
     for (i = 0; i < 9; i++)
@@ -21,14 +35,31 @@ Square *** setUpPuzzle(int ** puzzle)
 
             sudoku[i][j] ->number = puzzle[i][j];
 
+            /* assign row ad column numbers to each square */
             sudoku[i][j] ->row = i;
             sudoku[i][j] ->col = j;
+            sudoku[i][j] ->solvable = 9;
+
+            boxes[currentBox]->squares[boxes[currentBox]->numbers ] = sudoku[i][j];
+            sudoku[i][j]->box = boxes[currentBox];
+            boxes[currentBox]->numbers++;
 
             for (x = 0; x < 9; x++)
             {
                 sudoku[i][j] ->possible[x] = 0;
             }
+
+            if (j == 2)
+                currentBox++;
+            if (j == 5)
+                currentBox++;
         }
+
+        currentBox -= 2;
+        if (i == 2)
+            currentBox = 3;
+        if (i == 5)
+            currentBox = 6;
     }
 
     /* loop through rows */
@@ -41,6 +72,7 @@ Square *** setUpPuzzle(int ** puzzle)
             {
                 sudoku[i][j] ->solvable = 0;
                 updateSudoku(sudoku, i, j);
+                updateBoxes(sudoku, i, j);
                 UNSOLVED--;
             }
         }
@@ -87,9 +119,13 @@ int checkPuzzle(Square *** sudoku)
             {
                 solveSquare(sudoku[i][j]);
                 updateSudoku(sudoku, i, j);
+                updateBoxes(sudoku, i, j);
             }
         }
     }
+
+    boxSingles(sudoku);
+
     return 1;
 }
 
