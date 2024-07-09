@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char POSSIBLE;
+extern int UNSOLVED;
 
 typedef struct Box
 {
@@ -23,7 +23,10 @@ typedef struct Square
 
 
 int ** createPuzzle();
-void printPuzzle(int ** puzzle);
+int checkPuzzle(Square *** sudoku);
+int solveSquare(Square * square);
+void printPuzzle(Square *** sudoku);
 Square *** setUpPuzzle(int ** puzzle);
+int updateSudoku(Square *** sudoku, int row, int col);
 
 #endif
